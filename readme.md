@@ -41,3 +41,14 @@ DJANGO_ADMIN_USERNAME=user
 DJANGO_ADMIN_PASSWORD=password
 DJANGO_ADMIN_EMAIL=admin@some.mail
 ```
+
+### Locales <i>Ru</i>, <i>Fi</i>, <i>En</i>.
+
+```bash
+# creating locales
+python manage.py makemessages -l en
+python manage.py makemessages -l ru
+python manage.py makemessages -l fi
+# compile languages
+python manage.py compilemessages
+```

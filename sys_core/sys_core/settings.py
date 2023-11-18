@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -111,9 +113,16 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
+LANGUAGES = [
+    ("en", _("English")),
+    ("fi", _("Finnish")),
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale"),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
