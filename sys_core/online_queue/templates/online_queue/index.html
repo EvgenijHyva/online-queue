@@ -10,8 +10,13 @@
     {% include 'online_queue/includes/messages.html' %}
 
     <h1 class="mt-4">Insert your plate number</h1>
-    {% csrf_token %} {{ plate_register_form|crispy }}
-    <button>Submit</button>
+    {% csrf_token %}
+    <!-- form fields -->
+    {{ plate_register_form.plate|as_crispy_field }}
+    <!-- form fields -->
+
+    {{ plate_register_form.service|as_crispy_field }}
+    <button type="submit">Submit</button>
     <button type="reset">Reset</button>
   </form>
 </div>

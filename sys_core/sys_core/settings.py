@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd-party packages
     "crispy_forms",
-    "crispy_tailwind",
+    "crispy_bootstrap5",
+    "bootstrap5",
+    # apps
     "users",
     "online_queue",
 ]
@@ -162,8 +165,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.AppUser"
 
 # crispy forms settings
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 # redis
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache" # make problems TODO

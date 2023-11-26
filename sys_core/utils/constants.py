@@ -4,4 +4,4 @@ from django.utils.translation import gettext_lazy as _
 
 class ServiceEnum(models.TextChoices):
     TIRE_CHANGE = "A", _("Tire_change")
-    WHEELWORK = "2", _("Wheelwork")
+    WHEELWORK = "V", _("Wheelwork")

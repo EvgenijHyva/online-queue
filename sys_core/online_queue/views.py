@@ -19,7 +19,7 @@ def index(request):
             if existing_position:
                 existing_data = json.loads(existing_position.decode("utf-8"))
                 position = existing_data.get("position")
-                messages.warning(request, _("You have already in queue"))
+                messages.info(request, _("You have already in queue"))
 
             else:
                 position = r.incr("queue_counter")
