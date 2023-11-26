@@ -3,21 +3,24 @@
 {% load crispy_forms_tags %}
 <!-- Content for base.html -->
 {% block content %}
+<!-- Translations -->
+{% load i18n %}
 
-<div>
-  <form method="POST">
-    <!-- Backend messages -->
-    {% include 'online_queue/includes/messages.html' %}
+<div class="container">
+  <!-- Backend messages -->
+  {% include 'online_queue/includes/messages.html' %}
+  <form method="POST" class="container mx-auto mt-5" style="max-width:600px">
 
-    <h1 class="mt-4">Insert your plate number</h1>
+    <h2 class="mt-4 text-center">{% trans 'Insert your plate number' %}</h2>
     {% csrf_token %}
-    <!-- form fields -->
-    {{ plate_register_form.plate|as_crispy_field }}
-    <!-- form fields -->
+    <div class="form-group mb-3">
+      {{ plate_register_form.plate|as_crispy_field }}
+    
+    <div class="form-group mb-3">
+      {{ plate_register_form.service|as_crispy_field }}
+    </div>
 
-    {{ plate_register_form.service|as_crispy_field }}
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
+    <button type="submit" class="btn btn-success mt-3">{% trans "Submit" %}</button>
   </form>
 </div>
 {% endblock %}

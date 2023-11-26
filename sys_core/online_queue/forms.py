@@ -7,9 +7,15 @@ class QueueForm(forms.ModelForm):
     class Meta:
         model = QueueCar
         fields = ("plate", "position", "service")
+        help_texts = {
+            "service": _("Your help text for the service field."),
+        }
+        widgets = {
+            "service": forms.Select(attrs={"class": "form-select"}),
+        }
 
     position = forms.CharField(widget=forms.HiddenInput(), required=False)
     plate = forms.CharField(
-        help_text=_("license_plate_help_text"),
-        widget=forms.TextInput(attrs={"placeholder": _("license_plate")}),
+        help_text=_("Enter the license plate number of the car."),
+        widget=forms.TextInput(attrs={"placeholder": _("License plate")}),
     )

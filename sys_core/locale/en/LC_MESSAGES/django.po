@@ -35,10 +35,10 @@ msgid "service"
 msgstr "Service"
 
 #: online_queue/forms
-msgid "license_plate"
-msgstr "License Plate"
-msgid "license_plate_help_text"
-msgstr "Enter the license plate number of the car."
+msgid "License plate"
+msgstr ""
+msgid "Enter the license plate number of the car."
+msgstr ""
 
 #: online_queue/view
 msgid "Failed to add plate %(plate)s to the queue. Please try again."
@@ -56,3 +56,8 @@ msgstr "Wheelwork"
 msgid "Tire_change"
 msgstr "Tire change"
 
+#: online_queue/templates
+msgid "Submit"
+msgstr ""
+msgid "Insert your plate number"
+msgstr ""

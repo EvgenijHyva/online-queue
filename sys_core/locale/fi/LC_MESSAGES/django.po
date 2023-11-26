@@ -36,9 +36,9 @@ msgid "service"
 msgstr "Palvelu"
 
 #: online_queue/forms
-msgid "license_plate"
+msgid "License plate"
 msgstr "Rekisteri numero"
-msgid "license_plate_help_text"
+msgid "Enter the license plate number of the car."
 msgstr "Syötä rekisterinumero"
 
 #: online_queue/view
@@ -57,3 +57,8 @@ msgstr "Vannetyöt"
 msgid "Tire_change"
 msgstr "Allevaihto"
 
+#: online_queue/templates
+msgid "Submit"
+msgstr "Hyväksy"
+msgid "Insert your plate number"
+msgstr "Syötä auton rekisteri numero"
