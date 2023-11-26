@@ -33,7 +33,7 @@ def index(request):
                 messages.success(
                     request,
                     _("{plate} in queue with position {position}").format(
-                        plate=form.cleaned_data["plate"],
+                        plate=form.cleaned_data["plate"].upper(),
                         position=position,
                     ),
                 )
@@ -55,4 +55,5 @@ def index(request):
 
 
 def enqueue_user(request):
-    return JsonResponse({"r": "render"})
+    context = {"title": _("Online queue")}
+    return render(request, "online_queue/queue_list.html", context)
