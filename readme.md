@@ -40,6 +40,16 @@ DEBUG=False # default True for dev
 DJANGO_ADMIN_USERNAME=user
 DJANGO_ADMIN_PASSWORD=password
 DJANGO_ADMIN_EMAIL=admin@some.mail
+
+# Postgres DB settings example
+DATABASE_NAME=postgres
+DATABASE_USER=postgres
+DATABASE_PASSWORD=admin
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+
+# Redis
+REDIS_PASSWORD=mysecret
 ```
 
 ### Locales <i>Ru</i>, <i>Fi</i>, <i>En</i>.
@@ -51,4 +61,21 @@ python manage.py makemessages -l ru
 python manage.py makemessages -l fi
 # compile languages
 python manage.py compilemessages
+```
+
+# Development
+
+Docker containers
+[docker redis](https://hub.docker.com/_/redis)
+
+```bash
+# Redis
+docker run -d -p 6379:6379 --name my-redis redis
+```
+
+[docker postgres](https://hub.docker.com/_/postgres)
+
+```bash
+# Postgres
+docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgis/postgis
 ```

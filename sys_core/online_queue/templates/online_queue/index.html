@@ -1,5 +1,14 @@
-{% extends "online_queue/base.html"%} {% block content %}
-
-<h1 class="mt-4">Административная панель</h1>
-
+{% extends "online_queue/base.html"%}
+<!-- crispy package tags -->
+{% load crispy_forms_tags %}
+<!-- Content for base.html -->
+{% block content %}
+<div>
+  <form method="POST">
+    <h1 class="mt-4">Insert your plate number</h1>
+    {% csrf_token %} {{ plate_register_form|crispy }}
+    <button>Submit</button>
+    <button type="reset">Reset</button>
+  </form>
+</div>
 {% endblock %}

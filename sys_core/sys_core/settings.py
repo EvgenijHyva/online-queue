@@ -82,9 +82,14 @@ WSGI_APPLICATION = "sys_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql_psycopg2"
+        or "django.db.backends.sqlite3",
+        "NAME": os.environ.get("DATABASE_NAME") or BASE_DIR / "db.sqlite3",
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+        "HOST": os.environ.get("DATABASE_HOST"),
+        "PORT": os.environ.get("DATABASE_PORT"),
+    },
 }
 
 
@@ -93,9 +98,10 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://django@localhost:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": os.environ.get("REDIS_PASSWORD"),
         },
     }
 }
@@ -134,6 +140,7 @@ LANGUAGES = [
     ("en", _("English")),
     ("fi", _("Finnish")),
 ]
+
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
@@ -142,6 +149,10 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILESFILES_DIRS = (BASE_DIR / "static",)
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -151,5 +162,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.AppUser"
 
 # crispy forms settings
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap4"]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+# redis
+
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache" # make problems TODO
+SESSION_CACHE_ALIAS = "default"

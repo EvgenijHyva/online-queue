@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: sys_core/settings.py:120
 msgid "English"
 msgstr "En"
@@ -23,3 +24,7 @@ msgstr "En"
 #: sys_core/settings.py:121
 msgid "Finnish"
 msgstr "Fi"
+
+#: online_queue
+msgid "license_plate"
+msgstr "Rekisteri numero"

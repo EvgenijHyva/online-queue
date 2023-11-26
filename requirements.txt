@@ -6,6 +6,7 @@ django-crispy-forms==2.1
 django-dotenv==1.4.2
 django-extensions==3.2.3
 django-redis==5.4.0
+psycopg2-binary==2.9.6
 redis==5.0.1
 sqlparse==0.4.4
 typing_extensions==4.8.0
