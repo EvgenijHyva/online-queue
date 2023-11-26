@@ -19,11 +19,40 @@ msgstr ""
 #: sys_core/settings.py:120
 msgid "English"
 msgstr "En"
-
-#: sys_core/settings.py:121
 msgid "Finnish"
 msgstr "Fi"
 
-#: online_queue
+#: online_queue/models
+msgid "plate"
+msgstr "Plate"
+msgid "position"
+msgstr "Position"
+msgid "is_active"
+msgstr "Active"
+msgid "created_at"
+msgstr "Created at"
+msgid "service"
+msgstr "Service"
+
+#: online_queue/forms
 msgid "license_plate"
 msgstr "License Plate"
+msgid "license_plate_help_text"
+msgstr "Enter the license plate number of the car."
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Failed to add plate %(plate)s to the queue. Please try again."
+msgid "{plate} in queue with position {position}"
+msgstr "{plate} in queue with position {position}"
+msgid "You have already in queue"
+msgstr ""
+msgid "Online queue"
+msgstr ""
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr "Wheelwork"
+msgid "Tire_change"
+msgstr "Tire change"
+

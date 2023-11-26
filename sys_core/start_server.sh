@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# database makemigrations
+python3 manage.py makemigrations
+
 # database migrations
 python3 manage.py migrate
 

@@ -20,11 +20,40 @@ msgstr ""
 #: sys_core/settings.py:120
 msgid "English"
 msgstr "En"
-
-#: sys_core/settings.py:121
 msgid "Finnish"
 msgstr "Fi"
 
-#: online_queue
+#: online_queue/models
+msgid "plate"
+msgstr "Rekisteri numero"
+msgid "position"
+msgstr "Paikka"
+msgid "is_active"
+msgstr "Aktiivinen"
+msgid "created_at"
+msgstr "Luonti hetki"
+msgid "service"
+msgstr "Palvelu"
+
+#: online_queue/forms
 msgid "license_plate"
 msgstr "Rekisteri numero"
+msgid "license_plate_help_text"
+msgstr "Syötä rekisterinumero"
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Ei voitu lisätä laattaa %(plate)s jonoon. Yritä uudelleen."
+msgid "{plate} in queue with position {position}"
+msgstr "{plate} jonossa, sijalla {position}"
+msgid "You have already in queue"
+msgstr "Olette jo jonossa"
+msgid "Online queue"
+msgstr "Online Jono"
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr "Vannetyöt"
+msgid "Tire_change"
+msgstr "Allevaihto"
+

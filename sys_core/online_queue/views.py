@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.http import JsonResponse
+from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from .models import QueueCar
 from .forms import QueueForm
@@ -15,10 +16,10 @@ def index(request):
         try:
             mutable_data = request.POST.copy()
             existing_position = r.hget("queue_data", mutable_data["plate"])
-            print("is exists ->", existing_position)
             if existing_position:
                 existing_data = json.loads(existing_position.decode("utf-8"))
                 position = existing_data.get("position")
+                messages.warning(request, _("You have already in queue"))
 
             else:
                 position = r.incr("queue_counter")
@@ -31,7 +32,10 @@ def index(request):
                 print("saved", form_data_json)
                 messages.success(
                     request,
-                    f"{form.cleaned_data['plate']} in queue with position {position}",
+                    _("{plate} in queue with position {position}").format(
+                        plate=form.cleaned_data["plate"],
+                        position=position,
+                    ),
                 )
 
             return HttpResponseRedirect(reverse("queue:enqueue_user"))
@@ -40,12 +44,13 @@ def index(request):
             print(f"Redis error: {e}")
             messages.error(
                 request,
-                f"Failed to add plate {mutable_data['plate']} to the queue. Please try again.",
+                _("Failed to add plate %(plate)s to the queue. Please try again.")
+                % {"plate": mutable_data["plate"]},
             )
     else:
         form = QueueForm()
 
-    context = {"title": "Online queue", "plate_register_form": form}
+    context = {"title": _("Online queue"), "plate_register_form": form}
     return render(request, "online_queue/index.html", context)
 
 

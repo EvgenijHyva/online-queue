@@ -1,0 +1,17 @@
+{% for message in messages %}
+<!-- Conditoonal  -->
+{% if message.tags == 'success' %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  {{message}}
+</div>
+{% elif message.tags == 'warning' %}
+<div class="alert  role="alert">
+  {{message}}
+</div>
+{% else %}
+<div class="alert  role="alert">
+  {{message}}
+</div>
+{% endif %}
+<!-- Ending -->
+{% endfor %}
