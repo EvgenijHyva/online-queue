@@ -1,0 +1,13 @@
+.h-80 {
+	height: 80vh;
+}
+
+.mv-600{
+	max-width: 600px;
+}
+
+.service-title {
+	position: sticky;
+	top: 0;
+	z-index: 100
+}

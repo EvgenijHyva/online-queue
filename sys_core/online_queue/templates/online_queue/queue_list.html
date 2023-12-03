@@ -1,31 +1,42 @@
-{% extends "online_queue/base.html"%} {% block content %}
+{% extends "online_queue/base.html"%}
+<!-- Content -->
+
+{% load static %}
+
+<!-- queue additional styles -->
+{% block css %}
+<link
+  type="text/css"
+  href="{% static 'online_queue/css/queue_style.css' %}"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<!-- queue socket connection script -->
+{% block scripts %}
+<!-- Scripts -->
+<script src="{% static 'online_queue/js/socket_script.js' %}" defer></script>
+{% endblock %}
+
+<!-- Page content -->
+{% block content %}
 <!-- Translations -->
 {% load i18n %}
 
 <div class="container mt-5 d-flex">
-  <div class="container">
-    <ul class="list-group border border-info">
-      <div class="p-2 bg-primary pd-2">Service</div>
+  {% for service in services %}
+  <div class="container mv-600" id="queue-{{service}}">
+    <ul class="list-group overflow-auto border border-info h-80">
+      <div
+        class="p-2 bg-primary pd-2 text-center font-monospace fs-6 service-title"
+      >
+        {{ service }}
+      </div>
       <li class="list-group-item d-flex w-100 justify-content-between">
-        An item <small>~3 days ago</small>
+        <span>An item</span> <small>~3 days ago</small>
       </li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-      <li class="list-group-item">A fourth item</li>
-      <li class="list-group-item">And a fifth one</li>
     </ul>
   </div>
-  <div class="container">
-    <ul class="list-group border border-info">
-      <div class="p-2 bg-primary pd-2">Service</div>
-      <li class="list-group-item d-flex w-100 justify-content-between">
-        An item <small>~3 days ago</small>
-      </li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-      <li class="list-group-item">A fourth item</li>
-      <li class="list-group-item">And a fifth one</li>
-    </ul>
-  </div>
+  {% endfor %}
 </div>
 {% endblock %}

@@ -1,10 +1,12 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
-from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
-from .models import QueueCar
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+from utils.constants import ServiceEnum, ChannelRooms
 from .forms import QueueForm
+from .consumers import QueueConsumer
 import redis
 import json
 
@@ -37,8 +39,17 @@ def index(request):
                         position=position,
                     ),
                 )
+                # Notify clients about the new plate using WebSocket
+                group_name = "queue_list"
+                async_to_sync(QueueConsumer.group_send)(
+                    ChannelRooms.QUEUE.name,
+                    {
+                        "type": "receive",
+                        "plate": mutable_data["plate"],
+                    },
+                )
 
-            return HttpResponseRedirect(reverse("queue:enqueue_user"))
+            return HttpResponseRedirect(reverse("queue:queue_list"))
 
         except redis.exceptions.RedisError as e:
             print(f"Redis error: {e}")
@@ -54,6 +65,18 @@ def index(request):
     return render(request, "online_queue/index.html", context)
 
 
-def enqueue_user(request):
-    context = {"title": _("Online queue")}
+def queue_list(request):
+    services = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        ChannelRooms.QUEUE.name,
+        {
+            "type": "send.queue_update",
+            "message": "Queue updated!",  # You can customize this message
+        },
+    )
+
+    context = {"title": _("Online queue"), "services": services}
+
     return render(request, "online_queue/queue_list.html", context)

@@ -13,10 +13,18 @@
     <meta name="author" content="Evgeny" />
     <!-- Bootstrap5 -->
     {% load bootstrap5 %}
-    <!-- Bootstrap5 -->
+    <!-- Bootstrap5 css -->
     {% bootstrap_css %}
+    <!-- css -->
+    {% block css %}
+    <!-- custom css stylesheet-->
+    {% endblock %}
     <!-- Bootstrap5 -->
     {% bootstrap_javascript %}
+    <!-- scripts section-->
+    {% block scripts %}
+    <!-- script list-->
+    {% endblock %}
     <title>{{ title|title }}</title>
   </head>
 

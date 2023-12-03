@@ -50,6 +50,9 @@ DATABASE_PORT=5432
 
 # Redis
 REDIS_PASSWORD=mysecret
+REDIS_USER=sys_user
+REDIS_URL=127.0.0.1
+REDIS_PORT=6379
 ```
 
 ### Locales <i>Ru</i>, <i>Fi</i>, <i>En</i>.

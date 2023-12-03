@@ -1,10 +1,10 @@
 from django.urls import path
 from .apps import OnlineQueueConfig
-from .views import enqueue_user, index
+from .views import queue_list, index
 
 app_name = OnlineQueueConfig.name
 
 urlpatterns = (
     path("", index, name="enqueue_form"),
-    path("enqueue/", enqueue_user, name="enqueue_user"),
+    path("queue-list/", queue_list, name="queue_list"),
 )

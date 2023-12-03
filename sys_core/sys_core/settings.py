@@ -34,6 +34,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "Channels for websockets"
+    "channels",
+    "daphne",
+    # Standart apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -77,7 +81,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "sys_core.wsgi.application"
+# Daphne
+ASGI_APPLICATION = "sys_core.asgi.application"
 
 
 # Database
@@ -98,15 +103,16 @@ DATABASES = {
 
 # online_queue with redis
 
-CACHES = {
+REDIS_PORT = os.environ.get("REDIS_PORT")
+REDIS_HOST = os.environ.get("REDIS_HOST")
+# Redis as the Channel Layer
+CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://django@localhost:6379/0",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": os.environ.get("REDIS_PASSWORD"),
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(REDIS_HOST, REDIS_PORT)],
         },
-    }
+    },
 }
 
 # Password validation
