@@ -1,7 +1,7 @@
-import json
-import redis
+import json, redis
 from channels.generic.websocket import AsyncWebsocketConsumer
 from utils.constants import ChannelRooms
+from utils.utils import get_queue_cached_data
 
 r = redis.StrictRedis(host="localhost", port=6379, db=0)
 
@@ -12,12 +12,14 @@ class QueueConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         print("connecting")
         await self.channel_layer.group_add(self.ROOM, self.channel_name)
-
         await self.accept()
-
+        data = await get_queue_cached_data(r)
         await self.send(
             text_data=json.dumps(
-                {"type": "Connection established", "message": "Connected"}
+                {
+                    "message": f"Connected to {self.ROOM} room",
+                    "queue": data,
+                }
             )
         )
 
@@ -27,23 +29,8 @@ class QueueConsumer(AsyncWebsocketConsumer):
         )
         await self.channel_layer.group_discard(self.ROOM, self.channel_name)
 
-    async def receive(self, text_data):
-        print("call receive")
-        data = json.loads(text_data)
-        plate = data.get("plate")
-        print("plate", plate)
-        if plate:
-            await self.send(
-                text_data=json.dumps(
-                    {"message": f"Plate {plate} has been added to the queue."}
-                )
-            )
-
     async def send_queue_update(self, event):
-        print("Event", event)
-        await self.send(text_data=json.dumps({"message": event["message"]}))
-
-    async def group_send(self, data):
-        print("Group send triggers")
-        print(self)
-        print(data)
+        data = await get_queue_cached_data(r)
+        await self.send(
+            text_data=json.dumps({"message": event["message"], "queue": data})
+        )

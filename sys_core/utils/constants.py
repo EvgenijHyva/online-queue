@@ -8,5 +8,15 @@ class ServiceEnum(models.TextChoices):
     WHEELWORK = "V", _("Wheelwork")
 
 
+class ServiceStatus(models.TextChoices):
+    ADDED = "A", _("Added")
+    STARTED = "S", _("Started")
+    CANCELED = "C", _("Canceled")
+    DONE = "D", _("Done")
+
+
 class ChannelRooms(Enum):
     QUEUE = auto()
+
+
+SERVICE_DICT = dict((key, str(value)) for key, value in ServiceEnum.choices)

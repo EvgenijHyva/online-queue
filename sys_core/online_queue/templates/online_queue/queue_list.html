@@ -22,20 +22,19 @@
 {% block content %}
 <!-- Translations -->
 {% load i18n %}
-
+<!-- Backend messages -->
+{% include 'online_queue/includes/messages.html' %}
 <div class="container mt-5 d-flex">
   {% for service in services %}
-  <div class="container mv-600" id="queue-{{service}}">
-    <ul class="list-group overflow-auto border border-info h-80">
+  <div class="container mv-600">
+    <div class="overflow-auto border rounded-3 border-info h-80">
       <div
-        class="p-2 bg-primary pd-2 text-center font-monospace fs-6 service-title"
+        class="p-2 bg-primary pd-2 text-center font-monospace fs-6 service-title fw-bold"
       >
-        {{ service }}
+        {{ service.0 }}
       </div>
-      <li class="list-group-item d-flex w-100 justify-content-between">
-        <span>An item</span> <small>~3 days ago</small>
-      </li>
-    </ul>
+      <ul class="list-group" id="queue-list-{{service.1}}"></ul>
+    </div>
   </div>
   {% endfor %}
 </div>

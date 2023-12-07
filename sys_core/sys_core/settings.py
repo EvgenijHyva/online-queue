@@ -176,6 +176,4 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # redis
-
-# SESSION_ENGINE = "django.contrib.sessions.backends.cache" # make problems TODO
 SESSION_CACHE_ALIAS = "default"

@@ -4,9 +4,9 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from utils.constants import ServiceEnum, ChannelRooms
+from utils.constants import ServiceEnum, ChannelRooms, SERVICE_DICT
+from .serializers import QueueCarSerializer
 from .forms import QueueForm
-from .consumers import QueueConsumer
 import redis
 import json
 
@@ -17,35 +17,39 @@ def index(request):
     if request.POST:
         try:
             mutable_data = request.POST.copy()
-            existing_position = r.hget("queue_data", mutable_data["plate"])
-            if existing_position:
-                existing_data = json.loads(existing_position.decode("utf-8"))
-                position = existing_data.get("position")
+            redis_key = f'{mutable_data["plate"]}-{mutable_data["service"]}'
+            existing_position = r.hget("queue_data", redis_key)
+
+            if (
+                existing_position
+                and json.loads(existing_position.decode("utf-8"))["service"]
+                == mutable_data["service"]
+            ):
                 messages.info(request, _("You have already in queue"))
 
             else:
-                position = r.incr("queue_counter")
-                mutable_data["position"] = position
                 form = QueueForm(mutable_data)
                 form.is_valid()
-                form_data_json = json.dumps(form.cleaned_data)
-                r.hset("queue_data", mutable_data["plate"], form_data_json)
                 form.save()
+                form_data_json = form.dump_json_instance_to_string()
+                r.hset("queue_data", redis_key, form_data_json)
+
                 print("saved", form_data_json)
                 messages.success(
                     request,
-                    _("{plate} in queue with position {position}").format(
+                    _("{plate} in queue, service - {service}").format(
                         plate=form.cleaned_data["plate"].upper(),
-                        position=position,
+                        service=_(SERVICE_DICT[form.cleaned_data["service"]]),
                     ),
                 )
                 # Notify clients about the new plate using WebSocket
-                group_name = "queue_list"
-                async_to_sync(QueueConsumer.group_send)(
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)(
                     ChannelRooms.QUEUE.name,
                     {
-                        "type": "receive",
+                        "type": "send_queue_update",
                         "plate": mutable_data["plate"],
+                        "message": "added to queue",
                     },
                 )
 
@@ -66,17 +70,11 @@ def index(request):
 
 
 def queue_list(request):
-    services = list(map(lambda x: _(x[1]), ServiceEnum.choices))
-
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        ChannelRooms.QUEUE.name,
-        {
-            "type": "send.queue_update",
-            "message": "Queue updated!",  # You can customize this message
-        },
-    )
-
-    context = {"title": _("Online queue"), "services": services}
-
+    services_trans = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    services_list = list(SERVICE_DICT.keys())
+    services = list(zip(services_trans, services_list))
+    context = {
+        "title": _("Online queue"),
+        "services": services,
+    }
     return render(request, "online_queue/queue_list.html", context)
