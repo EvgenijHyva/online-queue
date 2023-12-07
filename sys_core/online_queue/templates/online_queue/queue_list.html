@@ -33,7 +33,11 @@
       >
         {{ service.0 }}
       </div>
-      <ul class="list-group" id="queue-list-{{service.1}}"></ul>
+      <ul
+        class="list-group"
+        id="queue-list-{{service.1}}"
+        data-duration="{{service.2}}"
+      ></ul>
     </div>
   </div>
   {% endfor %}

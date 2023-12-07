@@ -24,3 +24,5 @@ class RedisKeys(Enum):
 
 
 SERVICE_DICT = dict((key, str(value)) for key, value in ServiceEnum.choices)
+
+SERVICE_TIMING = {"A": "20 min", "V": "40 min"}

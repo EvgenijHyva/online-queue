@@ -4,7 +4,13 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from utils.constants import ServiceEnum, ChannelRooms, SERVICE_DICT, RedisKeys
+from utils.constants import (
+    ServiceEnum,
+    ChannelRooms,
+    RedisKeys,
+    SERVICE_DICT,
+    SERVICE_TIMING,
+)
 from .serializers import QueueCarSerializer
 from .forms import QueueForm
 import redis
@@ -72,7 +78,9 @@ def index(request):
 def queue_list(request):
     services_trans = list(map(lambda x: _(x[1]), ServiceEnum.choices))
     services_list = list(SERVICE_DICT.keys())
-    services = list(zip(services_trans, services_list))
+    services_timing = list(SERVICE_TIMING.values())
+    services = list(zip(services_trans, services_list, services_timing))
+    print(services)
     context = {
         "title": _("Online queue"),
         "services": services,

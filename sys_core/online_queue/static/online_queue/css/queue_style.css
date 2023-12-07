@@ -11,3 +11,11 @@
 	top: 0;
 	z-index: 100
 }
+
+li.list-group-item:first-child {
+	background-color: #e5f3e5;
+}
+
+li.list-group-item:nth-child(2) {
+	background-color: #e5f3e54a;
+}
