@@ -2,13 +2,10 @@ from django.core.management.base import BaseCommand
 from online_queue.models import QueueCar
 from django.utils import timezone
 from utils.constants import ServiceStatus
-import redis
-
-r = redis.StrictRedis(host="localhost", port=6379, db=0)
 
 
 class Command(BaseCommand):
-    help = "Dispose all existing queue from today"
+    help = "Normalize data for existing records"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -16,19 +13,19 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.SUCCESS(f"Cache is flushed {r.keys()}"))
-        r.flushall()
-
-        qs_filters = {"is_active": True}
+        qs_filters = {
+            "is_active": False,
+            "status__in": [ServiceStatus.STARTED, ServiceStatus.ADDED],
+        }
 
         if not options["all"]:
             today = timezone.now().date()
             qs_filters["created_at__date"] = today
 
-        QueueCar.objects.filter(**qs_filters).update(
-            is_active=False, status=ServiceStatus.CANCELED
-        )
+        QueueCar.objects.filter(**qs_filters).update(status=ServiceStatus.CANCELED)
 
         self.stdout.write(
-            self.style.SUCCESS("Successfully updated all Queue instances to inactive")
+            self.style.SUCCESS(
+                f"Successfully normalized queue records {f'for {today}' if not options['all'] else ''}"
+            )
         )

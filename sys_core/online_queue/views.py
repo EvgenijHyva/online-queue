@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from utils.constants import ServiceEnum, ChannelRooms, SERVICE_DICT
+from utils.constants import ServiceEnum, ChannelRooms, SERVICE_DICT, RedisKeys
 from .serializers import QueueCarSerializer
 from .forms import QueueForm
 import redis
@@ -18,7 +18,7 @@ def index(request):
         try:
             mutable_data = request.POST.copy()
             redis_key = f'{mutable_data["plate"]}-{mutable_data["service"]}'
-            existing_position = r.hget("queue_data", redis_key)
+            existing_position = r.hget(RedisKeys.queue_data.value, redis_key)
 
             if (
                 existing_position
@@ -32,7 +32,7 @@ def index(request):
                 form.is_valid()
                 form.save()
                 form_data_json = form.dump_json_instance_to_string()
-                r.hset("queue_data", redis_key, form_data_json)
+                r.hset(RedisKeys.queue_data.value, redis_key, form_data_json)
 
                 print("saved", form_data_json)
                 messages.success(

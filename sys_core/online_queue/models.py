@@ -22,3 +22,16 @@ class QueueCar(models.Model):
 
     def __str__(self):
         return f"{self.plate} - created: {self.created_at}"
+
+    def save(self, *args, **kwargs):
+        if self.is_active and self.status in [
+            ServiceStatus.DONE,
+            ServiceStatus.CANCELED,
+        ]:
+            self.is_active = False
+        elif not self.is_active and self.status in [
+            ServiceStatus.STARTED,
+            ServiceStatus.ADDED,
+        ]:
+            self.is_active = True
+        super(QueueCar, self).save(*args, **kwargs)

@@ -19,4 +19,8 @@ class ChannelRooms(Enum):
     QUEUE = auto()
 
 
+class RedisKeys(Enum):
+    queue_data = "queue_data"
+
+
 SERVICE_DICT = dict((key, str(value)) for key, value in ServiceEnum.choices)
