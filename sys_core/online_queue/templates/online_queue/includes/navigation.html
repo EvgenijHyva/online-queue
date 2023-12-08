@@ -1,7 +1,7 @@
 {% load i18n %}
 <nav class="navbar navbar-dark bg-primary sticky-top">
   <div class="container-fluid">
-    <ul class="navbar-nav d-flex flex-row align-items-baseline gap-3">
+    <ul class="navbar-nav d-flex flex-row align-items-baseline gap-3 mw-70-per">
       <li class="nav-item">
         <a class="navbar-brand" href="#">Rengas plan</a>
       </li>
@@ -23,16 +23,22 @@
       </li>
     </ul>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasDarkNavbar"
-      aria-controls="offcanvasDarkNavbar"
-      aria-label="Toggle navigation"
-    >
-      <i class="fa fa-bars"></i>
-    </button>
+    <div class="gap-4 d-flex flex-row align-items-baseline mc mw-30-per">
+      <span class="time-container">
+        <i class="fa-regular fa-clock text-white"></i>
+        <span class="time-display text-white">HH:MM</span>
+      </span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
     <div
       class="offcanvas offcanvas-end text-bg-light"
       tabindex="-1"
@@ -41,6 +47,10 @@
     >
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+        <span class="time-container m-3 text-black fw-bold">
+          <i class="fa-regular fa-clock"></i>
+          <span class="time-display">HH:MM</span>
+        </span>
         <button
           type="button"
           class="btn-close btn-close-black"
