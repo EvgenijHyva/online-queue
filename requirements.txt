@@ -17,6 +17,8 @@ django-crispy-forms==2.1
 django-dotenv==1.4.2
 django-extensions==3.2.3
 django-redis==5.4.0
+djangorestframework==3.14.0
+fontawesomefree==6.5.1
 gevent==23.9.1
 greenlet==3.0.1
 hyperlink==21.0.0
@@ -29,6 +31,7 @@ pyasn1-modules==0.3.0
 pycparser==2.21
 pyOpenSSL==23.3.0
 pypng==0.20220715.0
+pytz==2023.3.post1
 qrcode==7.4.2
 redis==5.0.1
 service-identity==23.1.0

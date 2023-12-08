@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "bootstrap5",
+    "fontawesomefree",
     # apps
     "users",
     "online_queue",
@@ -148,6 +149,7 @@ USE_TZ = True
 LANGUAGES = [
     ("en", _("English")),
     ("fi", _("Finnish")),
+    ("ru", _("Russian")),
 ]
 
 LOCALE_PATHS = [
@@ -159,6 +161,7 @@ LOCALE_PATHS = [
 
 STATIC_URL = "static/"
 STATICFILESFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

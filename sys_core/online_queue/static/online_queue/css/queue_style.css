@@ -19,3 +19,19 @@ li.list-group-item:first-child {
 li.list-group-item:nth-child(2) {
 	background-color: #e5f3e54a;
 }
+
+li.list-group-item > span,
+li.list-group-item > small {
+	width: 30%;
+}
+li.list-group-item > i {
+	width: 10%;
+}
+
+
+
+@media (max-width: 800px) {
+	.container-column {
+		flex-direction: column !important;
+	}
+}

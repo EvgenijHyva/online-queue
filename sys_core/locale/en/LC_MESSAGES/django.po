@@ -21,6 +21,22 @@ msgid "English"
 msgstr "En"
 msgid "Finnish"
 msgstr "Fi"
+msgid "Russian"
+msgstr "Ru"
+
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr ""
+msgid "Get in line"
+msgstr ""
+
+
 
 #: online_queue/models
 msgid "plate"
@@ -58,6 +74,8 @@ msgstr ""
 msgid "You have already in queue"
 msgstr ""
 msgid "Online queue"
+msgstr ""
+msgid "Waiting list"
 msgstr ""
 
 #: utils/constants

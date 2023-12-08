@@ -17,7 +17,7 @@ def get_active_queue_from_DB():
 async def get_queue_cached_data(r: redis.StrictRedis) -> dict[str, dict]:
     queue_data = r.hgetall(RedisKeys.queue_data.value)
 
-    if not queue_data or True:
+    if not queue_data:
         qs_data = await get_active_queue_from_DB()
         if qs_data:
             for item in qs_data:

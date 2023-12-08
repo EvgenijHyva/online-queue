@@ -22,6 +22,20 @@ msgid "English"
 msgstr "En"
 msgid "Finnish"
 msgstr "Fi"
+msgid "Russian"
+msgstr "Ru"
+
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr "Kieli valikoima"
+msgid "Get in line"
+msgstr "Ota jonoa"
 
 #: online_queue/models
 msgid "plate"
@@ -61,6 +75,8 @@ msgid "You have already in queue"
 msgstr "Olette jo jonossa"
 msgid "Online queue"
 msgstr "Online Jono"
+msgid "Waiting list"
+msgstr "Jonotus lista"
 
 #: utils/constants
 msgid "Wheelwork"

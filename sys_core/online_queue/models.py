@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from utils.constants import ServiceEnum, ServiceStatus
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 
 class QueueCar(models.Model):
@@ -35,3 +37,27 @@ class QueueCar(models.Model):
         ]:
             self.is_active = True
         super(QueueCar, self).save(*args, **kwargs)
+
+    def to_json(self):
+        return json.dumps(self.to_dict(), cls=DjangoJSONEncoder)
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "plate": self.plate,
+            "is_active": self.is_active,
+            "created_at": self.created_at,
+            "service": self.service,
+            "status": self.status,
+        }
+
+    def is_object_changed(self, other: "QueueCar") -> bool:
+        return self.to_json() != other.to_json()
+
+    def changed_fields(self, other: "QueueCar") -> dict[str, str]:
+        old = other.to_dict()
+        new = self.to_dict()
+        return dict(
+            (new_key, str(new_value))
+            for new_key, new_value in new.items()
+            if new_value != old[new_key]
+        )

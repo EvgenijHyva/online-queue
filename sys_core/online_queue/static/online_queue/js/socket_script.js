@@ -9,12 +9,21 @@ const renderItem = (item, index, time) => {
     "w-100",
     "justify-content-between"
   );
-  listItemContainer.innerHTML = `<span>${String(
-    plate
-  ).toUpperCase()}</span> <small>${new Date(created_at).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}</small> <small>~${index * Number(time)} min</small>`;
+  listItemContainer.innerHTML = `<span class="align-self-center">
+        <i class="fa-solid fa-car"></i>&nbsp;${String(plate).toUpperCase()}
+      </span> 
+      <small class="text-center align-self-center">
+        <i class="fa-solid fa-square-parking"></i>&nbsp;${new Date(
+          created_at
+        ).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}</small> 
+      <small class="text-end align-self-center">
+        <i class="fa-solid fa-hourglass-start"></i>&nbsp;${
+          index * Number(time)
+        } min
+  </small>`;
   listItemContainer.setAttribute("data-id", plate);
   return listItemContainer;
 };
@@ -26,7 +35,7 @@ socket.onmessage = function (event) {
   const platesDataArray = Object.values(data?.queue).sort(
     (a, b) => new Date(a.created_at) - new Date(b.created_at)
   );
-  console.log(platesDataArray);
+
   const services = data?.queue
     ? [...new Set(platesDataArray.map((el) => el.service))]
     : [];
