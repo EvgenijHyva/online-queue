@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from utils.utils import generate_redis_key, get_redis_connection
 from utils.constants import (
     ServiceEnum,
     ChannelRooms,
@@ -11,19 +12,19 @@ from utils.constants import (
     SERVICE_DICT,
     SERVICE_TIMING,
 )
-from .serializers import QueueCarSerializer
 from .forms import QueueForm
 import redis
 import json
 
-r = redis.StrictRedis(host="localhost", port=6379, db=0)
+r = get_redis_connection()
 
 
 def index(request):
     if request.POST:
         try:
             mutable_data = request.POST.copy()
-            redis_key = f'{mutable_data["plate"]}-{mutable_data["service"]}'
+
+            redis_key = generate_redis_key(mutable_data)
             existing_position = r.hget(RedisKeys.queue_data.value, redis_key)
 
             if (
@@ -80,7 +81,6 @@ def queue_list(request):
     services_list = list(SERVICE_DICT.keys())
     services_timing = list(SERVICE_TIMING.values())
     services = list(zip(services_trans, services_list, services_timing))
-    print(services)
     context = {
         "title": _("Online queue"),
         "services": services,

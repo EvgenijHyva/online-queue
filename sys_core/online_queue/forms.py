@@ -1,23 +1,34 @@
 from .models import QueueCar
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from utils.constants import ServiceStatus
 import json
 
 
 class QueueForm(forms.ModelForm):
     class Meta:
         model = QueueCar
-        fields = ("plate", "service")
+        fields = ("plate", "service", "status")
         help_texts = {
             "service": _("Your help text for the service field."),
         }
         widgets = {
-            "service": forms.Select(attrs={"class": "form-select"}),
+            "service": forms.Select(
+                attrs={"class": "form-select"}, choices=ServiceStatus.choices
+            ),
         }
 
+    status = forms.CharField(
+        initial=ServiceStatus.ADDED,
+        widget=forms.HiddenInput(attrs={"readonly": "readonly"}),
+    )
     plate = forms.CharField(
         help_text=_("Enter the license plate number of the car."),
         widget=forms.TextInput(attrs={"placeholder": _("License plate")}),
+        min_length=3,
+        max_length=15,
+        strip=True,
+        localize=True,
     )
 
     def serialize_instance_to_json(self):

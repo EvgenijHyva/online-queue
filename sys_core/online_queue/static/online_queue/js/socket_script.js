@@ -18,6 +18,7 @@ const renderItem = (item, index, time) => {
         ).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
+          hour24: true,
         })}</small> 
       <small class="text-end align-self-center">
         <i class="fa-solid fa-hourglass-start"></i>&nbsp;${
@@ -36,6 +37,11 @@ socket.onmessage = function (event) {
     (a, b) => new Date(a.created_at) - new Date(b.created_at)
   );
 
+  const ulsContainers = document.querySelectorAll("ul[id^='queue-list-']");
+  for (ul of ulsContainers) {
+    ul.innerHTML = "";
+  }
+
   const services = data?.queue
     ? [...new Set(platesDataArray.map((el) => el.service))]
     : [];
@@ -44,7 +50,6 @@ socket.onmessage = function (event) {
     const serviceContainer = document.getElementById(`queue-list-${item}`);
     const duration = serviceContainer.getAttribute("data-duration");
     const time = duration?.match(/\d+/)?.[0] ?? 0;
-    serviceContainer.innerHTML = "";
     let i = 0;
     for (plateItem of platesDataArray) {
       if (plateItem.service === item) {

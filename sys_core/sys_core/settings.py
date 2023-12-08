@@ -106,7 +106,7 @@ DATABASES = {
 # online_queue with redis
 
 REDIS_PORT = os.environ.get("REDIS_PORT")
-REDIS_HOST = os.environ.get("REDIS_HOST")
+REDIS_HOST = os.environ.get("REDIS_URL")
 # Redis as the Channel Layer
 CHANNEL_LAYERS = {
     "default": {
@@ -141,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Helsinki"
 
 USE_I18N = True
 USE_L10N = True

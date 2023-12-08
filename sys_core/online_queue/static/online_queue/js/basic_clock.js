@@ -1,5 +1,12 @@
 const displays = document.getElementsByClassName("time-display");
 
+for (let display of displays) {
+  const container = display.parentElement;
+  if (container.classList.contains("d-none")) {
+    container.classList.remove("d-none");
+  }
+}
+
 if (displays.length) {
   const updateTime = () => {
     const time = new Date();

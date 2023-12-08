@@ -1,9 +1,9 @@
-import json, redis
+import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from utils.constants import ChannelRooms
-from utils.utils import get_queue_cached_data
+from utils.utils import get_queue_cached_data, get_redis_connection
 
-r = redis.StrictRedis(host="localhost", port=6379, db=0)
+r = get_redis_connection()
 
 
 class QueueConsumer(AsyncWebsocketConsumer):
@@ -13,7 +13,7 @@ class QueueConsumer(AsyncWebsocketConsumer):
         print("connecting")
         await self.channel_layer.group_add(self.ROOM, self.channel_name)
         await self.accept()
-        data = await get_queue_cached_data(r)
+        data = await get_queue_cached_data()
         await self.send(
             text_data=json.dumps(
                 {
@@ -30,7 +30,13 @@ class QueueConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.ROOM, self.channel_name)
 
     async def send_queue_update(self, event):
-        data = await get_queue_cached_data(r)
+        data = await get_queue_cached_data()
         await self.send(
             text_data=json.dumps({"message": event["message"], "queue": data})
         )
+
+    async def logging_message(self, event):
+        print("#######################################")
+        print("self", self.__dict__)
+        print("event", event)
+        print("#######################################")

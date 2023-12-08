@@ -49,8 +49,10 @@ DATABASE_HOST=localhost
 DATABASE_PORT=5432
 
 # Redis
+# additional
 REDIS_PASSWORD=mysecret
 REDIS_USER=sys_user
+# esential
 REDIS_URL=127.0.0.1
 REDIS_PORT=6379
 ```
