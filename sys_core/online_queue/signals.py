@@ -13,29 +13,21 @@ def handle_model_save(sender, instance: QueueCar, **kwargs):
     if instance.id:
         old_instance = QueueCar.objects.get(pk=instance.pk)
         if instance.is_object_changed(old_instance):
-            changes = instance.changed_fields(old_instance)
             r = get_redis_connection()
-
-            redis_key_old = generate_redis_key(old_instance.to_dict())
-            redis_key_new = generate_redis_key(instance.to_dict())
-            instance_json = instance.to_json()
-            if instance.is_active:
-                r.hdel(RedisKeys.queue_data.value, redis_key_old)
-                r.hset(RedisKeys.queue_data.value, redis_key_new, instance_json)
-            else:
-                r.hdel(RedisKeys.queue_data.value, redis_key_old)
-                r.hdel(RedisKeys.queue_data.value, redis_key_new)
-
-            # send message thrue socket
+            changes = instance.changed_fields(old_instance)
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
                 ChannelRooms.QUEUE.name,
                 {
-                    "type": "send_queue_update",
-                    "message": f"updates for {instance.plate}",
+                    "type": "logging_message",
+                    "message": f"Updates for {instance.plate}, presaving activity",
                     "updates": json.dumps(changes),
                 },
             )
+            print("message logged")
+
+            redis_key_old = generate_redis_key(old_instance.to_dict())
+            r.hdel(RedisKeys.queue_data.value, redis_key_old)
 
 
 @receiver(pre_delete, sender=QueueCar)
@@ -57,5 +49,26 @@ def model_pre_delete_handler(sender, instance: QueueCar, **kwargs):
 
 @receiver(post_save, sender=QueueCar)
 def handle_model_post_save(sender, instance: QueueCar, **kwargs):
-    print("instance", instance.__dict__)
-    print("kwarks", kwargs)
+    channel_layer = get_channel_layer()
+    if instance.is_active:
+        r = get_redis_connection()
+        redis_key = generate_redis_key(instance.to_dict())
+        r.hset(RedisKeys.queue_data.value, redis_key, instance.to_json())
+
+        async_to_sync(channel_layer.group_send)(
+            ChannelRooms.QUEUE.name,
+            {
+                "type": "send_queue_update",
+                "plate": instance.plate,
+                "message": "Queue Updated",
+            },
+        )
+    else:
+        async_to_sync(channel_layer.group_send)(
+            ChannelRooms.QUEUE.name,
+            {
+                "type": "send_queue_update",
+                "plate": instance.plate,
+                "message": f"Item {instance.status}",
+            },
+        )

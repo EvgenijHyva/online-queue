@@ -37,6 +37,5 @@ class QueueConsumer(AsyncWebsocketConsumer):
 
     async def logging_message(self, event):
         print("#######################################")
-        print("self", self.__dict__)
         print("event", event)
         print("#######################################")

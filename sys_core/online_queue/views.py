@@ -38,26 +38,13 @@ def index(request):
                 form = QueueForm(mutable_data)
                 form.is_valid()
                 form.save()
-                form_data_json = form.dump_json_instance_to_string()
-                r.hset(RedisKeys.queue_data.value, redis_key, form_data_json)
 
-                print("saved", form_data_json)
                 messages.success(
                     request,
                     _("{plate} in queue, service - {service}").format(
                         plate=form.cleaned_data["plate"].upper(),
                         service=_(SERVICE_DICT[form.cleaned_data["service"]]),
                     ),
-                )
-                # Notify clients about the new plate using WebSocket
-                channel_layer = get_channel_layer()
-                async_to_sync(channel_layer.group_send)(
-                    ChannelRooms.QUEUE.name,
-                    {
-                        "type": "send_queue_update",
-                        "plate": mutable_data["plate"],
-                        "message": "added to queue",
-                    },
                 )
 
             return HttpResponseRedirect(reverse("queue:queue_list"))
