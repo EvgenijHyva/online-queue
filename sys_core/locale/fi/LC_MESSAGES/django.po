@@ -16,10 +16,78 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: sys_core/settings.py:120
 msgid "English"
 msgstr "En"
-
-#: sys_core/settings.py:121
 msgid "Finnish"
 msgstr "Fi"
+msgid "Russian"
+msgstr "Ru"
+
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr "Kieli valikoima"
+msgid "Get in line"
+msgstr "Ota jonoa"
+msgid "Today is"
+msgstr "Tänään on"
+
+#: online_queue/models
+msgid "plate"
+msgstr "Rekisteri numero"
+msgid "position"
+msgstr "Paikka"
+msgid "is_active"
+msgstr "Aktiivinen"
+msgid "created_at"
+msgstr "Luonti hetki"
+msgid "service"
+msgstr "Palvelu"
+msgid "status"
+msgstr "Status"
+msgid "Added"
+msgstr "Lisätty"
+msgid "Started"
+msgstr "Aloitettu"
+msgid "Canceled"
+msgstr "Mitätöity"
+msgid "Done"
+msgstr "Valmis"
+
+
+#: online_queue/forms
+msgid "License plate"
+msgstr "Rekisteri numero"
+msgid "Enter the license plate number of the car."
+msgstr "Syötä rekisterinumero"
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Ei voitu lisätä laattaa %(plate)s jonoon. Yritä uudelleen."
+msgid "{plate} in queue, service - {service}"
+msgstr "{plate} jonossa, palvelu - {service}"
+msgid "You have already in queue"
+msgstr "Olette jo jonossa"
+msgid "Online queue"
+msgstr "Online Jono"
+msgid "Waiting list"
+msgstr "Jonotus lista"
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr "Vannetyöt"
+msgid "Tire_change"
+msgstr "Allevaihto"
+
+#: online_queue/templates
+msgid "Submit"
+msgstr "Hyväksy"
+msgid "Insert your plate number"
+msgstr "Syötä auton rekisteri numero"

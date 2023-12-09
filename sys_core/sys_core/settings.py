@@ -34,12 +34,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "Channels for websockets"
+    "channels",
+    "daphne",
+    # Standart apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd-party packages
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "bootstrap5",
+    "fontawesomefree",
+    # apps
     "users",
     "online_queue",
 ]
@@ -52,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "sys_core.urls"
@@ -72,7 +83,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "sys_core.wsgi.application"
+# Daphne
+ASGI_APPLICATION = "sys_core.asgi.application"
 
 
 # Database
@@ -80,22 +92,29 @@ WSGI_APPLICATION = "sys_core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql_psycopg2"
+        or "django.db.backends.sqlite3",
+        "NAME": os.environ.get("DATABASE_NAME") or BASE_DIR / "db.sqlite3",
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+        "HOST": os.environ.get("DATABASE_HOST"),
+        "PORT": os.environ.get("DATABASE_PORT"),
+    },
 }
 
 
 # online_queue with redis
 
-CACHES = {
+REDIS_PORT = os.environ.get("REDIS_PORT")
+REDIS_HOST = os.environ.get("REDIS_URL")
+# Redis as the Channel Layer
+CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(REDIS_HOST, REDIS_PORT)],
         },
-    }
+    },
 }
 
 # Password validation
@@ -122,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Helsinki"
 
 USE_I18N = True
 USE_L10N = True
@@ -131,7 +150,9 @@ USE_TZ = True
 LANGUAGES = [
     ("en", _("English")),
     ("fi", _("Finnish")),
+    ("ru", _("Russian")),
 ]
+
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
@@ -140,6 +161,11 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILESFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -147,3 +173,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.AppUser"
+
+# crispy forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# redis
+SESSION_CACHE_ALIAS = "default"

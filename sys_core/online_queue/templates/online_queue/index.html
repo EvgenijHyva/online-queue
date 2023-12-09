@@ -1,0 +1,29 @@
+{% extends "online_queue/base.html"%}
+<!-- crispy package tags -->
+{% load crispy_forms_tags %}
+<!-- Content for base.html -->
+{% block content %}
+<!-- Translations -->
+{% load i18n %}
+
+<!-- Backend messages -->
+{% include 'online_queue/includes/messages.html' %}
+<div class="container">
+  <form method="POST" class="container mx-auto mt-5 card" style="max-width:600px">
+
+    <h2 class="mt-4 text-center">{% trans 'Insert your plate number' %}</h2>
+    {% csrf_token %}
+    <div class="form-group mb-3">
+      {{ plate_register_form.plate|as_crispy_field }}
+    
+    <div class="form-group mb-3">
+      {{ plate_register_form.service|as_crispy_field }}
+    </div>
+    <div class="form-group mb-3">
+      {{ plate_register_form.status|as_crispy_field }}
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">{% trans "Submit" %}</button>
+  </form>
+</div>
+{% endblock %}

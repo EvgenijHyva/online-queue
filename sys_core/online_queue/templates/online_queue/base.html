@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="{% translate 'Online queue' %}" />
+    <meta name="author" content="Evgeny" />
+    <!-- Bootstrap5 -->
+    {% load bootstrap5 %}
+    <!-- Bootstrap5 css -->
+    {% bootstrap_css %}
+    <!-- css -->
+    <link
+      type="text/css"
+      href="{% static 'online_queue/css/base.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link
+      href="{% static 'fontawesomefree/css/fontawesome.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{% static 'fontawesomefree/css/brands.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{% static 'fontawesomefree/css/solid.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    {% block css %}
+    <!-- custom css stylesheet-->
+    {% endblock %}
+    <!-- Bootstrap5 -->
+    {% bootstrap_javascript %}
+    <!-- scripts section-->
+    <script src="{% static 'online_queue/js/basic_clock.js' %}" defer></script>
+    {% block scripts %}
+    <!-- script list-->
+    {% endblock %}
+    <title>{{ title|title }}</title>
+  </head>
+
+  <body>
+    {% include 'online_queue/includes/navigation.html' %}
+    <!-- Nav-->
+    {% block content %}
+    <!-- Content -->
+    {% endblock %}
+  </body>
+</html>

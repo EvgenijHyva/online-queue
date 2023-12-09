@@ -19,7 +19,73 @@ msgstr ""
 #: sys_core/settings.py:120
 msgid "English"
 msgstr "En"
-
-#: sys_core/settings.py:121
 msgid "Finnish"
 msgstr "Fi"
+msgid "Russian"
+msgstr "Ru"
+
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr ""
+msgid "Get in line"
+msgstr ""
+msgid "Today is"
+msgstr ""
+
+#: online_queue/models
+msgid "plate"
+msgstr "Plate"
+msgid "position"
+msgstr "Position"
+msgid "is_active"
+msgstr "Active"
+msgid "created_at"
+msgstr "Created at"
+msgid "service"
+msgstr "Service"
+msgid "status"
+msgstr "Status"
+msgid "Added"
+msgstr ""
+msgid "Started"
+msgstr ""
+msgid "Canceled"
+msgstr ""
+msgid "Done"
+msgstr ""
+
+#: online_queue/forms
+msgid "License plate"
+msgstr ""
+msgid "Enter the license plate number of the car."
+msgstr ""
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Failed to add plate %(plate)s to the queue. Please try again."
+msgid "{plate} in queue, service - {service}"
+msgstr ""
+msgid "You have already in queue"
+msgstr ""
+msgid "Online queue"
+msgstr ""
+msgid "Waiting list"
+msgstr ""
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr ""
+msgid "Tire_change"
+msgstr "Tire change"
+
+#: online_queue/templates
+msgid "Submit"
+msgstr ""
+msgid "Insert your plate number"
+msgstr ""

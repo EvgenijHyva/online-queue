@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-08 16:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: sys_core/settings.py:120
+msgid "English"
+msgstr "En"
+msgid "Finnish"
+msgstr "Fi"
+msgid "Russian"
+msgstr "Ru"
+
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr "Языки"
+msgid "Get in line"
+msgstr "Встать в очередь"
+msgid "Today is"
+msgstr "Сегодня"
+
+#: online_queue/models
+msgid "plate"
+msgstr "Регистрационный номер машины"
+msgid "position"
+msgstr "Позиция"
+msgid "is_active"
+msgstr "Активный"
+msgid "created_at"
+msgstr "Дата создания"
+msgid "service"
+msgstr "Название сервиса"
+msgid "status"
+msgstr "Статус"
+msgid "Added"
+msgstr "Добавлен"
+msgid "Started"
+msgstr "Начат"
+msgid "Canceled"
+msgstr "Отменен"
+msgid "Done"
+msgstr "Готов"
+
+#: online_queue/forms
+msgid "License plate"
+msgstr "Номерной знак машины"
+msgid "Enter the license plate number of the car."
+msgstr "Введите нотмерной знак машины."
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Не удалось добавить машину с номером %(plate)s в очередь. Пожалуйста попробуйте снова."
+msgid "{plate} in queue, service - {service}"
+msgstr "{plate} Уже в очереди, название сервиса - {service}"
+msgid "You have already in queue"
+msgstr "Вы уже в очереди"
+msgid "Online queue"
+msgstr "Онлайн очередь"
+msgid "Waiting list"
+msgstr "Список ожидания"
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr "Работы по колесам"
+msgid "Tire_change"
+msgstr "Замена резины"
+
+#: online_queue/templates
+msgid "Submit"
+msgstr "Утвердить"
+msgid "Insert your plate number"
+msgstr "Укажите номер машины"

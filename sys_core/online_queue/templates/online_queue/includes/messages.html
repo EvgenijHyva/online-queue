@@ -1,0 +1,11 @@
+{% for message in messages %}
+<!-- Conditoonal  -->
+<div
+  class="alert {% if message.tags == 'success' %} alert-success {% elif message.tags == 'warning' %} alert-warning {% elif message.tags == 'info' %} alert-info {% else %} alert-danger {% endif %} alert-dismissible fade show"
+  role="alert"
+>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  {{message}}
+</div>
+<!-- Ending -->
+{% endfor %}

@@ -1,0 +1,99 @@
+{% load i18n %}
+<nav class="navbar navbar-dark bg-primary sticky-top">
+  <div class="container-fluid">
+    <ul class="navbar-nav d-flex flex-row align-items-baseline gap-3 mw-70-per">
+      <li class="nav-item">
+        <a class="navbar-brand" href="#">Rengas plan</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if request.resolver_match.url_name == 'queue_list' %} active {% endif %}"
+          aria-current="page"
+          href='{% url "queue:queue_list" %}'
+          >{% translate "Waiting list" %}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if request.resolver_match.url_name == 'enqueue_form' %} active {% endif %}"
+          aria-current="page"
+          href='{% url "queue:enqueue_form" %}'
+          >{% translate "Get in line" %}</a
+        >
+      </li>
+    </ul>
+
+    <div class="gap-4 d-flex flex-row align-items-baseline mc mw-30-per">
+      <span class="time-container d-none">
+        <i class="fa-regular fa-clock text-white"></i>
+        <span class="time-display text-white">HH:MM</span>
+      </span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <div
+      class="offcanvas offcanvas-end text-bg-light"
+      tabindex="-1"
+      id="offcanvasDarkNavbar"
+      aria-labelledby="offcanvasDarkNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+        <span class="time-container m-3 text-black fw-bold d-none">
+          <i class="fa-regular fa-clock"></i>
+          <span class="time-display">HH:MM</span>
+        </span>
+        <button
+          type="button"
+          class="btn-close btn-close-black"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-language"> </i>
+              &nbsp;{% translate "Languages" %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li>
+                <a class="dropdown-item" href="#">{% translate "Eng" %}</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">{% translate "Fin" %}</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">{% translate "Rus" %}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="m-3 text-black text-center fw-bold">
+        {% translate 'Today is' %}&nbsp;{% now "SHORT_DATE_FORMAT" %}
+      </div>
+    </div>
+  </div>
+</nav>
