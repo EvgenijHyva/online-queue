@@ -15,7 +15,7 @@ def get_redis_connection():
 
 
 def generate_redis_key(item: QueueCar) -> str:
-    return f'{item["plate"]}-{item["service"]}-{item["status"]}'
+    return f'{item["plate"]}-{item["service"]}'
 
 
 @database_sync_to_async

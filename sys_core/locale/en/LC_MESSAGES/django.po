@@ -35,8 +35,8 @@ msgid "Languages"
 msgstr ""
 msgid "Get in line"
 msgstr ""
-
-
+msgid "Today is"
+msgstr ""
 
 #: online_queue/models
 msgid "plate"

@@ -19,121 +19,76 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: online_queue/forms.py:12
-msgid "Your help text for the service field."
-msgstr ""
-
-#: online_queue/forms.py:19
-msgid "Enter the license plate number of the car."
-msgstr ""
-
-#: online_queue/forms.py:20
-msgid "License plate"
-msgstr ""
-
-#: online_queue/models.py:9
-msgid "plate"
-msgstr ""
-
-#: online_queue/models.py:10
-msgid "is_active"
-msgstr ""
-
-#: online_queue/models.py:11
-msgid "created_at"
-msgstr ""
-
-#: online_queue/models.py:13
-msgid "service"
-msgstr ""
-
-#: online_queue/models.py:19
-msgid "status"
-msgstr ""
-
-#: online_queue/templates/online_queue/base.html:12 online_queue/views.py:74
-#: online_queue/views.py:85
-msgid "Online queue"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:13
-msgid "Waiting list"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:21
-msgid "Get in line"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:62
-msgid "Languages"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:66
-msgid "Eng"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:72
-msgid "Fin"
-msgstr ""
-
-#: online_queue/templates/online_queue/includes/navigation.html:78
-msgid "Rus"
-msgstr ""
-
-#: online_queue/templates/online_queue/index.html:14
-msgid "Insert your plate number"
-msgstr ""
-
-#: online_queue/templates/online_queue/index.html:23
-msgid "Submit"
-msgstr ""
-
-#: online_queue/views.py:34
-msgid "You have already in queue"
-msgstr ""
-
-#: online_queue/views.py:46
-#, python-brace-format
-msgid "{plate} in queue, service - {service}"
-msgstr ""
-
-#: online_queue/views.py:68
-#, python-format
-msgid "Failed to add plate %(plate)s to the queue. Please try again."
-msgstr ""
-
-#: sys_core/settings.py:151
+#: sys_core/settings.py:120
 msgid "English"
-msgstr ""
-
-#: sys_core/settings.py:152
+msgstr "En"
 msgid "Finnish"
-msgstr ""
-
-#: sys_core/settings.py:153
+msgstr "Fi"
 msgid "Russian"
-msgstr ""
+msgstr "Ru"
 
-#: utils/constants.py:7
-msgid "Tire_change"
-msgstr ""
+# online_queue/templates/navigation
+msgid "Rus"
+msgstr "Rus"
+msgid "Fin"
+msgstr "Fin"
+msgid "Eng"
+msgstr "Eng"
+msgid "Languages"
+msgstr "Языки"
+msgid "Get in line"
+msgstr "Встать в очередь"
+msgid "Today is"
+msgstr "Сегодня"
 
-#: utils/constants.py:8
-msgid "Wheelwork"
-msgstr ""
-
-#: utils/constants.py:12
+#: online_queue/models
+msgid "plate"
+msgstr "Регистрационный номер машины"
+msgid "position"
+msgstr "Позиция"
+msgid "is_active"
+msgstr "Активный"
+msgid "created_at"
+msgstr "Дата создания"
+msgid "service"
+msgstr "Название сервиса"
+msgid "status"
+msgstr "Статус"
 msgid "Added"
-msgstr ""
-
-#: utils/constants.py:13
+msgstr "Добавлен"
 msgid "Started"
-msgstr ""
-
-#: utils/constants.py:14
+msgstr "Начат"
 msgid "Canceled"
-msgstr ""
-
-#: utils/constants.py:15
+msgstr "Отменен"
 msgid "Done"
-msgstr ""
+msgstr "Готов"
+
+#: online_queue/forms
+msgid "License plate"
+msgstr "Номерной знак машины"
+msgid "Enter the license plate number of the car."
+msgstr "Введите нотмерной знак машины."
+
+#: online_queue/view
+msgid "Failed to add plate %(plate)s to the queue. Please try again."
+msgstr "Не удалось добавить машину с номером %(plate)s в очередь. Пожалуйста попробуйте снова."
+msgid "{plate} in queue, service - {service}"
+msgstr "{plate} Уже в очереди, название сервиса - {service}"
+msgid "You have already in queue"
+msgstr "Вы уже в очереди"
+msgid "Online queue"
+msgstr "Онлайн очередь"
+msgid "Waiting list"
+msgstr "Список ожидания"
+
+#: utils/constants
+msgid "Wheelwork"
+msgstr "Работы по колесам"
+msgid "Tire_change"
+msgstr "Замена резины"
+
+#: online_queue/templates
+msgid "Submit"
+msgstr "Утвердить"
+msgid "Insert your plate number"
+msgstr "Укажите номер машины"

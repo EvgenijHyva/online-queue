@@ -36,6 +36,8 @@ msgid "Languages"
 msgstr "Kieli valikoima"
 msgid "Get in line"
 msgstr "Ota jonoa"
+msgid "Today is"
+msgstr "Tänään on"
 
 #: online_queue/models
 msgid "plate"
