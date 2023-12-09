@@ -24,7 +24,6 @@ def handle_model_save(sender, instance: QueueCar, **kwargs):
                     "updates": json.dumps(changes),
                 },
             )
-            print("message logged")
 
             redis_key_old = generate_redis_key(old_instance.to_dict())
             r.hdel(RedisKeys.queue_data.value, redis_key_old)
@@ -32,19 +31,28 @@ def handle_model_save(sender, instance: QueueCar, **kwargs):
 
 @receiver(pre_delete, sender=QueueCar)
 def model_pre_delete_handler(sender, instance: QueueCar, **kwargs):
-    r = get_redis_connection()
-    redis_key = generate_redis_key(instance.to_dict())
-    r.hdel(RedisKeys.queue_data.value, redis_key)
     channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        ChannelRooms.QUEUE.name,
-        {
-            "type": "send_queue_update",
-            "message": f"Deleted {instance.plate} from queue",
-            "updates": instance.to_json(),
-        },
-    )
-    print(instance)
+    if instance.is_active:
+        r = get_redis_connection()
+        redis_key = generate_redis_key(instance.to_dict())
+        r.hdel(RedisKeys.queue_data.value, redis_key)
+        async_to_sync(channel_layer.group_send)(
+            ChannelRooms.QUEUE.name,
+            {
+                "type": "send_queue_update",
+                "message": f"Deleted {instance.plate} from queue",
+                "updates": instance.to_json(),
+            },
+        )
+    else:
+        async_to_sync(channel_layer.group_send)(
+            ChannelRooms.QUEUE.name,
+            {
+                "type": "logging_message",
+                "message": f"Deleted {instance.plate}, status {instance.status}, is_active {instance.is_active}",
+                "updates": instance.to_json(),
+            },
+        )
 
 
 @receiver(post_save, sender=QueueCar)
@@ -69,6 +77,6 @@ def handle_model_post_save(sender, instance: QueueCar, **kwargs):
             {
                 "type": "send_queue_update",
                 "plate": instance.plate,
-                "message": f"Item {instance.status}",
+                "message": f"Item status {instance.status}",
             },
         )
