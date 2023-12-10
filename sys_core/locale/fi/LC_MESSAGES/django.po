@@ -79,6 +79,9 @@ msgid "Online queue"
 msgstr "Online Jono"
 msgid "Waiting list"
 msgstr "Jonotus lista"
+msgid "Queue management"
+msgstr "Jonon hallinta"
+
 
 #: utils/constants
 msgid "Wheelwork"

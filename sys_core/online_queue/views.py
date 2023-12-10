@@ -5,6 +5,7 @@ from django.contrib import messages
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from utils.utils import generate_redis_key, get_redis_connection
+from django.contrib.auth.decorators import user_passes_test
 from utils.constants import (
     ServiceEnum,
     ChannelRooms,
@@ -65,6 +66,7 @@ def index(request):
 
 def queue_list(request):
     services_trans = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    print(services_trans)
     services_list = list(SERVICE_DICT.keys())
     services_timing = list(SERVICE_TIMING.values())
     services = list(zip(services_trans, services_list, services_timing))
@@ -73,3 +75,11 @@ def queue_list(request):
         "services": services,
     }
     return render(request, "online_queue/queue_list.html", context)
+
+
+@user_passes_test(lambda user: user.is_staff or user.is_superuser)
+def queue_admin(request):
+    services = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    print(services)
+    context = {"title": _("Queue management"), "services": services}
+    return render(request, "online_queue/queue_management.html", context)

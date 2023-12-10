@@ -1,0 +1,45 @@
+{% extends "online_queue/base.html"%}
+<!-- Content -->
+
+{% load static %}
+
+<!-- queue additional styles -->
+{% block css %}
+<link
+  type="text/css"
+  href="{% static 'online_queue/css/queue_style.css' %}"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<!-- queue socket connection script -->
+{% block scripts %}
+<!-- Scripts -->
+<script src="{% static 'online_queue/js/queue_admin.js' %}" defer></script>
+{% endblock %}
+
+<!-- Page content -->
+{% block content %}
+<!-- Translations -->
+{% load i18n %}
+<!-- Backend messages -->
+{% include 'online_queue/includes/messages.html' %}
+<div class="container mt-4 d-flex gap-3 container-column">
+  {% for service in services %}
+  <div class="container mv-600">
+    <div class="overflow-auto border rounded-3 border-info h-80">
+      <div
+        class="p-2 bg-primary text-white pd-2 text-center font-monospace fs-6 service-title fw-bold"
+      >
+        {{ service.0 }}
+      </div>
+      <ul
+        class="list-group"
+        id="queue-list-{{service.1}}"
+        data-duration="{{service.2}}"
+      ></ul>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

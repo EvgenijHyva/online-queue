@@ -80,6 +80,8 @@ msgid "Online queue"
 msgstr "Онлайн очередь"
 msgid "Waiting list"
 msgstr "Список ожидания"
+msgid "Queue management"
+msgstr "Управление очередью"
 
 #: utils/constants
 msgid "Wheelwork"
