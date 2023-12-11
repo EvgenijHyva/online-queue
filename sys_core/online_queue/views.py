@@ -80,15 +80,3 @@ def queue_admin(request):
     print(services)
     context = {"title": _("Queue management"), "services": services}
     return render(request, "online_queue/queue_management.html", context)
-
-
-def language_change(request, language_code):
-    next_url = request.GET.get("next", "/")
-    resp = HttpResponseRedirect(next_url)
-
-    # resp.set_cookie("LANGUAGE_CODE", language_code)
-    # request.session["django_language"] = language_code
-    # request.session.modified = True
-    activate(language_code)
-
-    return resp

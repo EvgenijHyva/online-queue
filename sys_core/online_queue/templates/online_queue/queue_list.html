@@ -12,7 +12,7 @@
 />
 {% endblock %}
 
-<!-- queue socket connection script -->
+<!-- queue connection script -->
 {% block scripts %}
 <!-- Scripts -->
 <script src="{% static 'online_queue/js/socket_script.js' %}" defer></script>
@@ -20,9 +20,9 @@
 
 <!-- Page content -->
 {% block content %}
-<!-- Translations -->
+<!--  -->
 {% load i18n %}
-<!-- Backend messages -->
+<!-- Messages -->
 {% include 'online_queue/includes/messages.html' %}
 <div class="container mt-4 d-flex gap-3 container-column">
   {% for service in services %}

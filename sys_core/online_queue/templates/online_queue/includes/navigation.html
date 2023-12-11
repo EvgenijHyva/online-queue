@@ -101,19 +101,22 @@
                   type="hidden"
                 />
               </form>
-              <script>
-                "use strict";
-                const changeLanguage = (code) => {
-                  const form = document.getElementById("languageChangeForm");
-                  const input = document.getElementById(
-                    "languageSelectedHidden"
-                  );
-                  input.value = code;
-                  form.submit();
-                };
-              </script>
             </ul>
           </li>
+          {% if user.is_staff %}
+          <li
+            class="d-flex gap-2 rounded {% if request.resolver_match.url_name == 'queue_management' %} bg-primary text-wrap text-white {% else %} text-black {% endif %}"
+          >
+            <i
+              class="ms-1 fa-solid fa-screwdriver-wrench align-self-center"
+            ></i>
+            <a
+              class="nav-link {% if request.resolver_match.url_name == 'queue_management' %} text-white {% else %} text-black {% endif %}"
+              href="{% if request.resolver_match.url_name != 'queue_management' %} {% url 'queue:queue_management' %} {% else %} # {% endif %}"
+              >{% translate "Queue management" %}</a
+            >
+          </li>
+          {% endif %}
         </ul>
       </div>
       <div class="m-3 text-black text-center fw-bold">
@@ -122,3 +125,12 @@
     </div>
   </div>
 </nav>
+<script>
+  "use strict";
+  const changeLanguage = (code) => {
+    const form = document.getElementById("languageChangeForm");
+    const input = document.getElementById("languageSelectedHidden");
+    input.value = code;
+    form.submit();
+  };
+</script>
