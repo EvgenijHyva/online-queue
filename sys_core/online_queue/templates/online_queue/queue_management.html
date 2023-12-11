@@ -12,17 +12,17 @@
 />
 {% endblock %}
 
-<!-- queue connection script -->
+<!-- queue socket connection script -->
 {% block scripts %}
 <!-- Scripts -->
-<script src="{% static 'online_queue/js/socket_script.js' %}" defer></script>
+<script src="{% static 'online_queue/js/queue_admin.js' %}" defer></script>
 {% endblock %}
 
 <!-- Page content -->
 {% block content %}
-<!--  -->
+<!-- Translations -->
 {% load i18n %}
-<!-- Messages -->
+<!-- Backend messages -->
 {% include 'online_queue/includes/messages.html' %}
 <div class="container mt-4 d-flex gap-3 container-column">
   {% for service in services %}

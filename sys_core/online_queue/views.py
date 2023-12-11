@@ -1,13 +1,12 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, gettext_lazy as _
 from django.contrib import messages
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
 from utils.utils import generate_redis_key, get_redis_connection
+from django.conf import settings
 from utils.constants import (
     ServiceEnum,
-    ChannelRooms,
     RedisKeys,
     SERVICE_DICT,
     SERVICE_TIMING,
@@ -73,3 +72,11 @@ def queue_list(request):
         "services": services,
     }
     return render(request, "online_queue/queue_list.html", context)
+
+
+@user_passes_test(lambda user: user.is_staff or user.is_superuser)
+def queue_admin(request):
+    services = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    print(services)
+    context = {"title": _("Queue management"), "services": services}
+    return render(request, "online_queue/queue_management.html", context)

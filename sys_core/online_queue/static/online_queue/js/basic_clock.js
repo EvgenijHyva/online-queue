@@ -1,3 +1,4 @@
+"use strict";
 const displays = document.getElementsByClassName("time-display");
 
 for (let display of displays) {
@@ -15,7 +16,7 @@ if (displays.length) {
 
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
-    var timeString = `${hours}:${minutes}`;
+    let timeString = `${hours}:${minutes}`;
     for (let display of displays) {
       display.innerText = timeString;
     }

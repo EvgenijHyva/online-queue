@@ -38,8 +38,14 @@ msgid "Get in line"
 msgstr "Ota jonoa"
 msgid "Today is"
 msgstr "Tänään on"
+msgid "Admin panel"
+msgstr "Ylläpitäjän paneeli"
 
 #: online_queue/models
+msgid "Queue"
+msgstr "Jono"
+msgid "Queues"
+msgstr "Jonot"
 msgid "plate"
 msgstr "Rekisteri numero"
 msgid "position"
@@ -67,6 +73,9 @@ msgid "License plate"
 msgstr "Rekisteri numero"
 msgid "Enter the license plate number of the car."
 msgstr "Syötä rekisterinumero"
+msgid "Please select the service."
+msgstr "Valitse palvelu."
+
 
 #: online_queue/view
 msgid "Failed to add plate %(plate)s to the queue. Please try again."
@@ -79,6 +88,9 @@ msgid "Online queue"
 msgstr "Online Jono"
 msgid "Waiting list"
 msgstr "Jonotus lista"
+msgid "Queue management"
+msgstr "Jonon hallinta"
+
 
 #: utils/constants
 msgid "Wheelwork"
