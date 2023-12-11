@@ -40,6 +40,9 @@ msgid "Get in line"
 msgstr "Встать в очередь"
 msgid "Today is"
 msgstr "Сегодня"
+msgid "Admin panel"
+msgstr "Панель администратора"
+
 
 #: online_queue/models
 msgid "Queue"

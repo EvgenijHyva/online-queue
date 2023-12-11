@@ -38,6 +38,8 @@ msgid "Get in line"
 msgstr "Ota jonoa"
 msgid "Today is"
 msgstr "Tänään on"
+msgid "Admin panel"
+msgstr "Ylläpitäjän paneeli"
 
 #: online_queue/models
 msgid "Queue"

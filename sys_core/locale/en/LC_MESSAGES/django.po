@@ -37,6 +37,8 @@ msgid "Get in line"
 msgstr ""
 msgid "Today is"
 msgstr ""
+msgid "Admin panel"
+msgstr ""
 
 #: online_queue/models
 msgid "Queue"

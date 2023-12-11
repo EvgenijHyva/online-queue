@@ -2,8 +2,10 @@
 <nav class="navbar navbar-dark bg-primary sticky-top">
   <div class="container-fluid">
     <ul class="navbar-nav d-flex flex-row align-items-baseline gap-3 mw-70-per">
-      <li class="nav-item">
-        <a class="navbar-brand" href="#">Rengas plan</a>
+      <li class="nav-item user-select-none">
+        <a class="navbar-brand" href='{% url "queue:queue_list" %}'
+          >Rengas plan</a
+        >
       </li>
       <li class="nav-item">
         <a
@@ -40,7 +42,7 @@
       </button>
     </div>
     <div
-      class="offcanvas offcanvas-end text-bg-light"
+      class="offcanvas offcanvas-end text-bg-light user-select-none"
       tabindex="-1"
       id="offcanvasDarkNavbar"
       aria-labelledby="offcanvasDarkNavbarLabel"
@@ -58,7 +60,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="offcanvas-body">
+      <div class="offcanvas-body user-select-none">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item dropdown">
             <a
@@ -104,6 +106,10 @@
             </ul>
           </li>
           {% if user.is_staff %}
+          <li class="text-center m-3">
+            <i class="fa-solid fa-user-tie me-1"></i>
+            <span>{% translate "Admin panel" %}</span>
+          </li>
           <li
             class="d-flex gap-2 rounded {% if request.resolver_match.url_name == 'queue_management' %} bg-primary text-wrap text-white {% else %} text-black {% endif %}"
           >
