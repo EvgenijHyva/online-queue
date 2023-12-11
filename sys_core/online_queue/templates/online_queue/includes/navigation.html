@@ -71,22 +71,47 @@
               <i class="fa-solid fa-language"> </i>
               &nbsp;{% translate "Languages" %}
             </a>
+            {% get_current_language as LANGUAGE_CODE %}
+            <!--  current language:{{ LANGUAGE_CODE }} -->
+            {% get_available_languages as LANGUAGES %}
+            <!-- {{ LANGUAGE_CODE|language_name_local }} -->
+            {% get_language_info_list for LANGUAGES as languages %}
+            <!-- {{ LANGUAGE_CODE|language_name_translated }} -->
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li>
-                <a class="dropdown-item" href="#">{% translate "Eng" %}</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">{% translate "Fin" %}</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">{% translate "Rus" %}</a>
-              </li>
+              <form
+                id="languageChangeForm"
+                method="post"
+                action="{% url 'set_language' %}"
+              >
+                {% csrf_token %}
+                <!-- -->
+                {% for lang in languages %}
+                <li
+                  class="dropdown-item {% if LANGUAGE_CODE == lang.code %} active {% endif %}"
+                  onClick="changeLanguage('{{ lang.code }}')"
+                >
+                  {{ lang.name_local|title }}
+                </li>
+
+                {% endfor %}
+                <input
+                  id="languageSelectedHidden"
+                  name="language"
+                  value="{{LANGUAGE_CODE}}"
+                  type="hidden"
+                />
+              </form>
+              <script>
+                "use strict";
+                const changeLanguage = (code) => {
+                  const form = document.getElementById("languageChangeForm");
+                  const input = document.getElementById(
+                    "languageSelectedHidden"
+                  );
+                  input.value = code;
+                  form.submit();
+                };
+              </script>
             </ul>
           </li>
         </ul>

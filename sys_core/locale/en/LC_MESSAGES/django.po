@@ -39,6 +39,10 @@ msgid "Today is"
 msgstr ""
 
 #: online_queue/models
+msgid "Queue"
+msgstr ""
+msgid "Queues"
+msgstr ""
 msgid "plate"
 msgstr "Plate"
 msgid "position"
@@ -64,6 +68,8 @@ msgstr ""
 msgid "License plate"
 msgstr ""
 msgid "Enter the license plate number of the car."
+msgstr ""
+msgid "Please select the service."
 msgstr ""
 
 #: online_queue/view

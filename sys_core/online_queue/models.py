@@ -6,6 +6,10 @@ import json
 
 
 class QueueCar(models.Model):
+    class Meta:
+        verbose_name = _("Queue")
+        verbose_name_plural = _("Queue")
+
     plate = models.CharField(_("plate"), max_length=15)
     is_active = models.BooleanField(_("is_active"), default=True, blank=True)
     created_at = models.DateTimeField(_("created_at"), auto_now_add=True)

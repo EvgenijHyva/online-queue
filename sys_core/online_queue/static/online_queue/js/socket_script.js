@@ -1,3 +1,4 @@
+"use strict";
 const socket = new WebSocket("ws://" + window.location.host + "/ws/queue/");
 
 const renderItem = (item, index, time) => {
@@ -38,7 +39,7 @@ socket.onmessage = function (event) {
   );
 
   const ulsContainers = document.querySelectorAll("ul[id^='queue-list-']");
-  for (ul of ulsContainers) {
+  for (let ul of ulsContainers) {
     ul.innerHTML = "";
   }
 
@@ -51,7 +52,7 @@ socket.onmessage = function (event) {
     const duration = serviceContainer.getAttribute("data-duration");
     const time = duration?.match(/\d+/)?.[0] ?? 0;
     let i = 0;
-    for (plateItem of platesDataArray) {
+    for (let plateItem of platesDataArray) {
       if (plateItem.service === item) {
         i++;
         const itemHTML = renderItem(plateItem, i, time);

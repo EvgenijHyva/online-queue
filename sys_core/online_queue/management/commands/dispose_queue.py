@@ -2,9 +2,9 @@ from django.core.management.base import BaseCommand
 from online_queue.models import QueueCar
 from django.utils import timezone
 from utils.constants import ServiceStatus
-import redis
+from utils.utils import get_redis_connection
 
-r = redis.StrictRedis(host="localhost", port=6379, db=0)
+r = get_redis_connection()
 
 
 class Command(BaseCommand):

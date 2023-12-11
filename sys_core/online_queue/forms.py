@@ -1,7 +1,7 @@
 from .models import QueueCar
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from utils.constants import ServiceStatus
+from utils.constants import ServiceStatus, ServiceEnum
 import json
 
 
@@ -10,7 +10,7 @@ class QueueForm(forms.ModelForm):
         model = QueueCar
         fields = ("plate", "service", "status")
         help_texts = {
-            "service": _("Your help text for the service field."),
+            "service": _("Please select the service."),
         }
         widgets = {
             "service": forms.Select(
@@ -24,6 +24,7 @@ class QueueForm(forms.ModelForm):
     )
     plate = forms.CharField(
         help_text=_("Enter the license plate number of the car."),
+        label=_("plate"),
         widget=forms.TextInput(attrs={"placeholder": _("License plate")}),
         min_length=3,
         max_length=15,

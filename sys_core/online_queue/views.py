@@ -1,14 +1,12 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, gettext_lazy as _
 from django.contrib import messages
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
 from utils.utils import generate_redis_key, get_redis_connection
-from django.contrib.auth.decorators import user_passes_test
+from django.conf import settings
 from utils.constants import (
     ServiceEnum,
-    ChannelRooms,
     RedisKeys,
     SERVICE_DICT,
     SERVICE_TIMING,
@@ -66,7 +64,6 @@ def index(request):
 
 def queue_list(request):
     services_trans = list(map(lambda x: _(x[1]), ServiceEnum.choices))
-    print(services_trans)
     services_list = list(SERVICE_DICT.keys())
     services_timing = list(SERVICE_TIMING.values())
     services = list(zip(services_trans, services_list, services_timing))
@@ -83,3 +80,15 @@ def queue_admin(request):
     print(services)
     context = {"title": _("Queue management"), "services": services}
     return render(request, "online_queue/queue_management.html", context)
+
+
+def language_change(request, language_code):
+    next_url = request.GET.get("next", "/")
+    resp = HttpResponseRedirect(next_url)
+
+    # resp.set_cookie("LANGUAGE_CODE", language_code)
+    # request.session["django_language"] = language_code
+    # request.session.modified = True
+    activate(language_code)
+
+    return resp
