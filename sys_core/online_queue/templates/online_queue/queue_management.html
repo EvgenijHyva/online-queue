@@ -23,7 +23,6 @@
 <!-- Translations -->
 {% load i18n %}
 <!-- Backend messages -->
-{% include 'online_queue/includes/messages.html' %}
 <div class="container mt-4 d-flex gap-3 container-column">
   {% for service in services %}
   <div class="container mv-600">
@@ -31,13 +30,9 @@
       <div
         class="p-2 bg-primary text-white pd-2 text-center font-monospace fs-6 service-title fw-bold"
       >
-        {{ service.0 }}
+        {{ service }}
       </div>
-      <ul
-        class="list-group"
-        id="queue-list-{{service.1}}"
-        data-duration="{{service.2}}"
-      ></ul>
+      <ul class="list-group" id="queue-list-{{service.0}}"></ul>
     </div>
   </div>
   {% endfor %}

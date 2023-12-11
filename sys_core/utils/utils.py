@@ -5,6 +5,7 @@ from channels.db import database_sync_to_async
 from utils.constants import RedisKeys
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 import redis
 
 
@@ -44,3 +45,7 @@ async def get_queue_cached_data() -> dict[str, dict]:
     }
 
     return queue_data
+
+
+def user_is_admin(user: AbstractUser) -> bool:
+    return user.is_staff or user.is_superuser
