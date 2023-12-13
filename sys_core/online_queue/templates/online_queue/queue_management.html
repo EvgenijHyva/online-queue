@@ -15,7 +15,8 @@
 <!-- queue socket connection script -->
 {% block scripts %}
 <!-- Scripts -->
-<script src="{% static 'online_queue/js/queue_admin.js' %}" defer></script>
+<script src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'online_queue/js/queue_admin.js' %}"></script>
 {% endblock %}
 
 <!-- Page content -->
@@ -30,11 +31,16 @@
       <div
         class="p-2 bg-primary text-white pd-2 text-center font-monospace fs-6 service-title fw-bold"
       >
-        {{ service }}
+        {{ service.0 }}
       </div>
-      <ul class="list-group" id="queue-list-{{service.0}}"></ul>
+      <ul class="list-group" id="queue-list-{{service.1}}"></ul>
     </div>
   </div>
   {% endfor %}
 </div>
+<!-- Modals -->
+{% include "online_queue/includes/confirmation_modal.html" %}
+<!-- Modal-->
+{% include "online_queue/includes/adjustment_modal.html" %}
+<!-- Modal-->
 {% endblock %}

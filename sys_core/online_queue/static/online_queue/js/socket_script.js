@@ -24,7 +24,7 @@ const renderItem = (item, index, time) => {
       <small class="text-end align-self-center">
         <i class="fa-solid fa-hourglass-start"></i>&nbsp;${
           index * Number(time)
-        } min
+        } ${gettext("min")}
   </small>`;
   listItemContainer.setAttribute("data-id", plate);
   return listItemContainer;
@@ -32,7 +32,6 @@ const renderItem = (item, index, time) => {
 
 socket.onmessage = function (event) {
   const data = JSON.parse(event.data);
-  console.log(data);
 
   const platesDataArray = Object.values(data?.queue).sort(
     (a, b) => new Date(a.created_at) - new Date(b.created_at)

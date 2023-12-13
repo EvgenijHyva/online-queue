@@ -28,10 +28,18 @@ li.list-group-item > i {
 	width: 10%;
 }
 
-
+.list-group .list-group-item .btn {
+	padding: 1px 6px;
+}
 
 @media (max-width: 800px) {
 	.container-column {
 		flex-direction: column !important;
+	}
+	.list-group .list-group-item .middle-block {
+		display: none;
+	}
+	.list-group .list-group-item .plate-block {
+		width: 50%;
 	}
 }

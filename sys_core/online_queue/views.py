@@ -36,7 +36,7 @@ def index(request):
                 form = QueueForm(mutable_data)
                 form.is_valid()
                 form.save()
-
+                print(_(SERVICE_DICT[form.cleaned_data["service"]]), "test")
                 messages.success(
                     request,
                     _("{plate} in queue, service - {service}").format(
@@ -75,7 +75,9 @@ def queue_list(request):
 
 @user_passes_test(lambda user: user.is_staff or user.is_superuser)
 def queue_admin(request):
-    services = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    services_trans = list(map(lambda x: _(x[1]), ServiceEnum.choices))
+    services_list = list(SERVICE_DICT.keys())
+    services = list(zip(services_trans, services_list))
     print(services)
     context = {"title": _("Queue management"), "services": services}
     return render(request, "online_queue/queue_management.html", context)
