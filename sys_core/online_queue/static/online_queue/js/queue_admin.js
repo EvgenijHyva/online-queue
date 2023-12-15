@@ -2,7 +2,7 @@
 const socket = new WebSocket("ws://" + window.location.host + "/ws/queue/");
 let globalPlates = [];
 
-const renderItem = (item, time) => {
+const renderItem = (item, service) => {
   const { plate, created_at } = item;
   const listItemContainer = document.createElement("li");
   listItemContainer.classList.add(
@@ -21,7 +21,7 @@ const renderItem = (item, time) => {
       ).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
-        hour24: true,
+        hour12: false,
       })}
     </small>  
     <div class="d-flex gap-3">
@@ -30,7 +30,7 @@ const renderItem = (item, time) => {
         class="btn btn-danger" 
         data-bs-toggle="modal" 
         data-bs-target="#staticBackdrop"
-        onClick="renderModalBody('cancel', '${plate}')"
+        onClick="renderModalBody('cancel', '${plate}', '${service}')"
       > 
         <i class="fa-solid fa-trash-can"></i> 
       </button>
@@ -39,7 +39,7 @@ const renderItem = (item, time) => {
         class="btn btn-success" 
         data-bs-toggle="modal" 
         data-bs-target="#staticBackdrop"
-        onClick="renderModalBody('confirm', '${plate}')"
+        onClick="renderModalBody('confirm', '${plate}', '${service}')"
       > 
         <i class="fa-regular fa-circle-check"></i> 
       </button> 
@@ -49,45 +49,47 @@ const renderItem = (item, time) => {
   return listItemContainer;
 };
 
-const renderModalBody = (type, plate) => {
-  const dataItem = globalPlates.find((item) => item.plate === plate);
+const renderModalBody = (type, plate, service) => {
+  const dataItem = globalPlates.find(
+    (item) => item.plate === plate && item.service == service
+  );
   if (!dataItem) return;
   const title = document.getElementById("staticBackdropLabel");
   const body = document.querySelector("div[class='modal-body']");
   body.setAttribute("data-plate", plate);
   const confirmBtn = document.getElementById("confirm-button");
+
   const event = { type: "modify_queue" };
   switch (type) {
     case "confirm":
       title.innerText = "Confirm";
       body.innerText = `'${dataItem.plate}' ${gettext("Done")}?`;
-      confirmBtn.addEventListener("click", async () => {
-        await socket.send(
-          JSON.stringify({ ...event, action: "done", item: dataItem })
-        );
-      });
+      confirmBtn.addEventListener("click", handleConfirmClick, { once: true });
       return;
     case "cancel":
       title.innerText = "Cancel";
       body.innerText = `${gettext("Cancel car")} '${dataItem.plate}'?`;
-      confirmBtn.addEventListener("click", async () => {
-        await socket.send(
-          JSON.stringify({ ...event, action: "cancel", item: dataItem })
-        );
-      });
+      confirmBtn.addEventListener("click", handleCancelClick, { once: true });
       return;
     default:
       return;
   }
+
+  function handleConfirmClick() {
+    socket.send(JSON.stringify({ ...event, action: "done", item: dataItem }));
+  }
+
+  function handleCancelClick() {
+    socket.send(JSON.stringify({ ...event, action: "cancel", item: dataItem }));
+  }
 };
 
 socket.onerror = (e) => {
-  console.log("error socket", e);
+  console.error("error socket", e);
 };
 
 socket.onmessage = function (event) {
   const data = JSON.parse(event.data);
-  console.log(data);
 
   const platesDataArray = Object.values(data?.queue).sort(
     (a, b) => new Date(a.created_at) - new Date(b.created_at)
@@ -108,7 +110,7 @@ socket.onmessage = function (event) {
 
     for (let plateItem of platesDataArray) {
       if (plateItem.service === item) {
-        const itemHTML = renderItem(plateItem);
+        const itemHTML = renderItem(plateItem, item);
         serviceContainer.append(itemHTML);
       }
     }

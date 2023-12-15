@@ -19,7 +19,7 @@ const renderItem = (item, index, time) => {
         ).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
-          hour24: true,
+          hour12: false,
         })}</small> 
       <small class="text-end align-self-center">
         <i class="fa-solid fa-hourglass-start"></i>&nbsp;${

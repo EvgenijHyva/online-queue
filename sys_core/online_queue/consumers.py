@@ -84,7 +84,7 @@ class QueueConsumer(AsyncWebsocketConsumer):
             .order_by("-created_at")
             .first()
         )
-        print("item", queue)
+
         if not queue:
             return
         if action == "done":
@@ -102,6 +102,5 @@ class QueueConsumer(AsyncWebsocketConsumer):
         await self.send(json.dumps({"status": "error", "details": details}))
 
     async def logging_message(self, event):
-        print("#######################################")
-        print("event", event)
+        print(event)
         print("#######################################")
