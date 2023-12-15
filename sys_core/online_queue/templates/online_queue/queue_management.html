@@ -15,7 +15,8 @@
 <!-- queue socket connection script -->
 {% block scripts %}
 <!-- Scripts -->
-<script src="{% static 'online_queue/js/queue_admin.js' %}" defer></script>
+<script src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'online_queue/js/queue_admin.js' %}"></script>
 {% endblock %}
 
 <!-- Page content -->
@@ -23,7 +24,6 @@
 <!-- Translations -->
 {% load i18n %}
 <!-- Backend messages -->
-{% include 'online_queue/includes/messages.html' %}
 <div class="container mt-4 d-flex gap-3 container-column">
   {% for service in services %}
   <div class="container mv-600">
@@ -33,13 +33,14 @@
       >
         {{ service.0 }}
       </div>
-      <ul
-        class="list-group"
-        id="queue-list-{{service.1}}"
-        data-duration="{{service.2}}"
-      ></ul>
+      <ul class="list-group" id="queue-list-{{service.1}}"></ul>
     </div>
   </div>
   {% endfor %}
 </div>
+<!-- Modals -->
+{% include "online_queue/includes/confirmation_modal.html" %}
+<!-- Modal-->
+{% include "online_queue/includes/adjustment_modal.html" %}
+<!-- Modal-->
 {% endblock %}

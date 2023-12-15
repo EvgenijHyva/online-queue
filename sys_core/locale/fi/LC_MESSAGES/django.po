@@ -90,16 +90,27 @@ msgid "Waiting list"
 msgstr "Jonotus lista"
 msgid "Queue management"
 msgstr "Jonon hallinta"
-
+msgid "min"
+msgstr ""
 
 #: utils/constants
 msgid "Wheelwork"
 msgstr "Vannetyöt"
 msgid "Tire_change"
 msgstr "Allevaihto"
+msgid "Tire change"
+msgstr "Замена резины"
 
 #: online_queue/templates
 msgid "Submit"
 msgstr "Hyväksy"
 msgid "Insert your plate number"
 msgstr "Syötä auton rekisteri numero"
+msgid "Cancel"
+msgstr "Peruuttaa"
+msgid "Cancel car"
+msgstr "Peruuttaa auto"
+msgid "Confirm"
+msgstr "Vahvistaa"
+msgid "Changes"
+msgstr "Muutokset"
